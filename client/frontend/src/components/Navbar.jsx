@@ -1,0 +1,54 @@
+import React, { useContext } from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { FcRating } from "react-icons/fc";
+import { FaUserCircle } from "react-icons/fa";
+import { useState } from 'react'
+import { AppContext } from '../context/AppContext';
+
+const Navbar = () => {
+
+    // const [user, setUser] = useState(true);
+    const { user } = useContext(AppContext)
+    const navigate = useNavigate();
+  return (
+    <div className='flex items-center justify-between py-4'>
+        <Link to='/'>
+        <h1 className='text-2xl sm:text-3xl'>AI-Flash📷</h1>
+        </Link>
+
+
+        <div>
+            {
+                user ? 
+                    <div className='flex items-center gap-2 sm:gap-3'>
+                        <button onClick={() => Navigate ('/BuyCredit')} className='flex items-center gap-2 bg-orange-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700 '>
+                        <FcRating size={30} />
+                        <p className='text-gray-700'>Credits Left: 20</p>
+                        </button>
+
+                        <p className='text-gray-700 max-sm:hidden pl-4'>Hi Wiffi Drips</p>
+                        <div className='relative group'>
+                        <FaUserCircle size={25} className='drop-shadow' />
+                        <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black pt-10 bg-transparent transition-all duration-700'>
+                            <ul className='list-none m-0 p-2 bg-white rounded-md border text-sm'>
+                                <li className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
+                            </ul>
+
+                        </div>
+                        </div>
+                    </div>
+             : 
+
+                <div className='flex items-center gap-4'>
+                    <p onClick={() => navigate('/BuyCredit')} className='cursor-pointer'>Pricing</p>
+                    <button className='bg-blue-700 text-white px-6 py-4 rounded-2xl cursor-pointer sm:py-2'>Login</button>
+                </div>
+                
+            }
+        </div>
+    </div>
+    
+  )
+}
+
+export default Navbar
